@@ -117,8 +117,8 @@ This is where you can give a hat tip to anyone who helped you out on this projec
 
 ### My process first draft
 
-[x] 0 - Read the instructions to complete the challenge in the challenge's README.md file throughly
-[] 1 - Create an outline of which elements to create as a starting point
+[x] - Read the instructions to complete the challenge in the challenge's README.md file throughly
+[x] - Create an outline of which elements to create as a starting point
 
 - form element
   metric vs imperial
@@ -129,11 +129,22 @@ This is where you can give a hat tip to anyone who helped you out on this projec
   weight classification
   healthy weight range
 
-[] 2 - Figure out the BMI formula and healthy weight range for BMI result
+[] - Implement conditional visualization of input elements
 
-[] 3 - Render the basic structure
+- if metric
+  display two inputs
+  height unit - cm
+  weight unit - kg
+- else if imperial
+  display four inputs
+  height unit - ft and in
+  weight unit - st and lbs
 
-[] 4 - Create initial state for
+[] - Figure out the BMI formula and healthy weight range for BMI result
+
+[] - Render the basic structure
+
+[] - Create initial state for
 
 - inputs
   metric vs imperial
@@ -144,12 +155,12 @@ This is where you can give a hat tip to anyone who helped you out on this projec
   weight classification
   ideal weight range
 
-[] 5 - Create function to calculate the BMI without any input
+[] 5 Create function to calculate the BMI without any input
 
-[] 6 - Display example inputs in the console
+[] 6 Display example inputs in the console
 
-[] 7 - Integrate inputs into function
+[] 7 Integrate inputs into function
 
-[] 8 - Render form results on the screen
+[] 8 Render form results on the screen
 
-[] 9 - Implement styles
+[] 9 Implement styles
