@@ -3,13 +3,7 @@ import { useState } from 'react';
 export default function App() {
   const [measuringSystem, setMeasuringSystem] = useState('metric');
   function onSystemChange(e) {
-    console.log(e);
-    if (e.target.value === 'metric') {
-      setMeasuringSystem('metric');
-    }
-    if (e.target.value === 'imperial') {
-      setMeasuringSystem('imperial');
-    }
+    e.target.value === 'metric' ? setMeasuringSystem('metric') : setMeasuringSystem('imperial');
   }
 
   return (
@@ -18,12 +12,11 @@ export default function App() {
         Enter your details below
       </h3>
       <label>
-      <input type='radio' name='measuringSystem' value='metric' onChange={onSystemChange} defaultChecked={true} />
+      <input type='radio' name='measuringSystem' value='metric' id='metric' onChange={onSystemChange} defaultChecked={true} />
         Metric
       </label>
       <label>
-        <input type='radio' name='measuringSystem' value='imperial' onChange={onSystemChange} />
-        con
+        <input type='radio' name='measuringSystem' value='imperial' id='imperial' onChange={onSystemChange} />
         Imperial
       </label>
       {measuringSystem === 'metric' && <Metric/>}
