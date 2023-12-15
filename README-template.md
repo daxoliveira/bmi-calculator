@@ -118,7 +118,7 @@ This is where you can give a hat tip to anyone who helped you out on this projec
 ### My process first draft
 
 [x] - Read the instructions to complete the challenge in the challenge's README.md file throughly
-[x] - Create an outline of which elements to create as a starting point
+[x] - Create an outline of which elements should be created as a starting point
 
 - form element
   metric vs imperial
@@ -129,7 +129,7 @@ This is where you can give a hat tip to anyone who helped you out on this projec
   weight classification
   healthy weight range
 
-[] - Implement conditional visualization of input elements
+[x] - Implement conditional visualization of input elements
 
 - if metric
   display two inputs
@@ -140,11 +140,7 @@ This is where you can give a hat tip to anyone who helped you out on this projec
   height unit - ft and in
   weight unit - st and lbs
 
-[] - Figure out the BMI formula and healthy weight range for BMI result
-
-[] - Render the basic structure
-
-[] - Create initial state for
+[x] - Create initial state for
 
 - inputs
   metric vs imperial
@@ -154,6 +150,29 @@ This is where you can give a hat tip to anyone who helped you out on this projec
   bmi-result
   weight classification
   ideal weight range
+
+[x] - Implement the BMI formula for Metric and Imperial systems function
+[x] - Implement weight classification function
+[x] - Implement healthy weight range for BMI result function
+
+[] - Divide App.jsx into subcomponents
+
+- App
+  - MeasurementSystemSwitch
+  - MetricForm
+  - ImperialForm
+  - WeightResult
+
+[] - MetricForm component
+
+- Setup basic layout with minimal resemblance to design
+- Setup basic functionality
+  - Allow user to enter height and weight by typing numbers or arrow keys
+  - Allow user to submit form on pressing "Enter" key
+  - Call bmiMetric function to calculate bmi
+  - Send bmi as prop to WeightResult component
+
+[] - Render the basic structure
 
 [] 5 Create function to calculate the BMI without any input
 
