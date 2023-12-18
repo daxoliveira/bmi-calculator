@@ -1,85 +1,55 @@
+import { useState } from 'react';
+import './MetricForm.css';
 
-export default function MetricForm({ height, weight, onHeightChangeMetric, onWeightChangeMetric, onBMICalculation }) {
+export default function MetricForm({
+  height,
+  weight,
+  onHeightChangeMetric,
+  onWeightChangeMetric,
+  onBMICalculation,
+}) {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onBMICalculation(e.target.value);
+      setSubmitted(true);
+    }
+  };
+
   return (
-    <form
-    
-    >
+    <form>
       <label>
         Height
-        <br />
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            border: "1px solid #ccc",
-            width: "9rem",
-            padding: "5px"
-          }}
-          >
-        <input 
-          type='number' 
-          name='height' 
-          placeholder='185cm' 
-          id='height' 
-          value={height}
-          onChange={(e) => onHeightChangeMetric(e.target.value)}
-          style={{
-            border: "none",
-            width: "6.25rem",
-            
-          }}
+        <div className={`input-container ${submitted ? 'submitted' : ''}`}>
+          <input
+            type="number"
+            name="height"
+            placeholder="185"
+            id="height"
+            value={height}
+            onChange={(e) => onHeightChangeMetric(e.target.value)}
           />
-          <strong>cm</strong>
+          <span>cm</span>
         </div>
-
       </label>
-      <br />
+
       <label>
         Weight
-        <br />
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            border: "1px solid #ccc",
-            width: "9rem",
-            padding: "5px"
-          }}
-          >
-        <input 
-          type='number' 
-          name='weight' 
-          placeholder='80kg' 
-          id='weight'
-          value={weight}
-          onChange={(e) => onWeightChangeMetric(e.target.value)}
-          style={{
-            border: "none",
-            width: "6.25rem",
-            
-          }}
-          onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                onBMICalculation(e.target.value);
-              }
-            }
-          }
+        <div className={`input-container ${submitted ? 'submitted' : ''}`}>
+          <input
+            type="number"
+            name="weight"
+            placeholder="80"
+            id="weight"
+            value={weight}
+            onChange={(e) => onWeightChangeMetric(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
-          <strong>kg</strong>
+          <span>kg</span>
         </div>
-
       </label>
     </form>
   );
 }
-
-// add this to future css
-// input[type="number"] {
-//  -webkit-appearance: none;
-// -moz-appearance: textfield;
-// }
