@@ -8,11 +8,11 @@ export function bmiMetric(weight, height) {
 
 // Step 2: Create a function that calculates BMI based on imperial units
 export function bmiImperial(stones, pounds, feet, inches) {
-let weight = (stones * 14) + pounds;
-let height = (feet * 12) + inches;
-let bmi = (weight / (height * height)) * 703;
-bmi = bmi.toFixed(1);
-return bmi;
+  let weight = (stones * 14) + pounds;
+  let height = (feet * 12) + inches;
+  let bmi = (weight / (height * height)) * 703;
+  bmi = bmi.toFixed(1);
+  return bmi;
 }
 
 // Step 3: Create a function that classifies BMI
@@ -29,22 +29,29 @@ export function classifyBMI(bmi) {
 }
 
 // Step 4: Create a function that calculates ideal weight range
-export function calculateWeightRange(height, measurementSystem) {
+export function calculateIdealWeightRange(height, measurementSystem) {
   let lowerWeight, upperWeight;
+  let message = '';
 
   if (measurementSystem === 'imperial') {
     const heightInInches = height.feet * 12 + height.inches;
     lowerWeight = (18.5 * (heightInInches * heightInInches) / 703).toFixed(1);
     upperWeight = (24.9 * (heightInInches * heightInInches) / 703).toFixed(1);
+
+    const lowerStonesAndPounds = convertPoundsToStonesAndPounds(lowerWeight);
+    const upperStonesAndPounds = convertPoundsToStonesAndPounds(upperWeight);
+
+    message = `Your BMI suggests you’re a healthy weight. Your ideal weight range is between ${lowerStonesAndPounds.stones}st ${lowerStonesAndPounds.remainingPounds}lbs - ${upperStonesAndPounds.stones}st ${upperStonesAndPounds.remainingPounds}lbs.`;
   } else if (measurementSystem === 'metric') {
     const heightInMeters = height / 100;
     lowerWeight = (18.5 * (heightInMeters * heightInMeters)).toFixed(1);
     upperWeight = (24.9 * (heightInMeters * heightInMeters)).toFixed(1);
+    message = `Your BMI suggests you’re a healthy weight. Your ideal weight range is between ${lowerWeight}kgs - ${upperWeight}kgs.`;
   } else {
     throw new Error('Invalid unit. Use "imperial" or "metric".');
   }
 
-  return { lowerWeight, upperWeight };
+  return { lowerWeight, upperWeight, message };
 }
 
 // Step 5: Create a function that converts pounds to stones and pounds

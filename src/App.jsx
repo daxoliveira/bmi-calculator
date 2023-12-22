@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MeasurementSystemSwitch from './components/MeasuringSystemSwitch';
 import MetricForm from './components/MetricForm';
 import ImperialForm from './components/ImperialForm';
@@ -8,9 +8,7 @@ import {
   bmiMetric,
   bmiImperial,
   classifyBMI,
-  calculateWeightRange,
-  convertPoundsToStonesAndPounds,
-  displayResult
+  calculateIdealWeightRange
 } from './utils/bmiCalculations';
 
 export default function App() {
@@ -21,33 +19,30 @@ export default function App() {
   const [weightImperial, setWeightImperial] = useState({ stones: 11, pounds: 4 });
   const [bmi, setBmi] = useState(0);
   const [bmiClassification, setBmiClassification] = useState('');
-  const [weightRange, setWeightRange] = useState([0, 0]);
+  const [idealWeightRange, setIdealWeightRange] = useState({ });
+
+  useEffect(() => {
+    console.log('idealWeightRange', idealWeightRange);
+  }, [idealWeightRange]); // useEffect will run whenever idealWeightRange changes
 
   const handleBMICalculation = () => {
-    const calculatedBMI = measuringSystem === 'metric'
-      ? bmiMetric(weightMetric, heightMetric)
-      : bmiImperial(weightImperial.stones, weightImperial.pounds, heightImperial.feet, heightImperial.inches);
-    setBmi(calculatedBMI)
-    alert(`BMI: ${calculatedBMI}`);
-  }
+    let calculatedBMI, calculatedIdealWeightRange;
+  
+    if (measuringSystem === 'metric') {
+      calculatedBMI = bmiMetric(weightMetric, heightMetric);
+      calculatedIdealWeightRange = calculateIdealWeightRange(heightMetric, measuringSystem);
+    } else if (measuringSystem === 'imperial') {
+      calculatedBMI = bmiImperial(weightImperial.stones, weightImperial.pounds, heightImperial.feet, heightImperial.inches);
+      calculatedIdealWeightRange = calculateIdealWeightRange(heightImperial, measuringSystem);
+    } else {
+      throw new Error('Invalid measuring system. Use "metric" or "imperial".');
+    }
+  
+    setBmi(calculatedBMI);
+    setBmiClassification(classifyBMI(calculatedBMI));
+    setIdealWeightRange(calculatedIdealWeightRange);
+  };
 
-  const handleBMIClassification = () => {
-    const calculatedClassification = classifyBMI(bmi);
-    setBmiClassification(calculatedClassification);
-    alert(`BMI Classification: ${calculatedClassification}`);
-  }
-
-  const handleConvertPoundsToStonesAndPounds = () => {
-    const convertedWeight = convertPoundsToStonesAndPounds(weightImperial);
-    setWeightImperial(convertedWeight);
-    alert(`Weight Imperial: ${JSON.stringify(convertedWeight)}`);
-  }
-
-  const handleWeightRange = () => {
-    const calculatedWeightRange = calculateWeightRange(heightMetric, measuringSystem);
-    setWeightRange(calculatedWeightRange);
-    alert(`Weight Range: ${JSON.stringify(calculatedWeightRange)}`);
-  }
 
 
   return (
@@ -76,9 +71,9 @@ export default function App() {
           onBMICalculation={handleBMICalculation}
         />}
       <WeightResult
-        handleDisplayBMI={bmi}
-        handleDisplayClassification={bmiClassification}
-        handleDisplayWeightRange={weightRange}
+        displayBMI={bmi}
+        displayBMIClassification={bmiClassification}
+        displayIdealWeightRange={idealWeightRange}
       />
     </>
   );

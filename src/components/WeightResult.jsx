@@ -1,11 +1,14 @@
+import './WeightResult.css';
 
-export default function WeightResult() {
-  
+export default function WeightResult({ displayBMI, displayBMIClassification, displayIdealWeightRange }) {
   return (
-    <div>
+    <div className="weight-result">
       <h4>Your BMI is...</h4>
-      <h3>22.0</h3>
-      <p>Your BMI suggests you&apos;re a healthy weight. Your ideal weight is between <strong>9st 6lbs</strong> - <strong>12st 10lbs</strong>.</p>
+      <h3>{displayBMI}</h3>
+      <p>
+        Your BMI suggests you&apos;re {displayBMIClassification}.
+        {displayIdealWeightRange.message}
+      </p>
     </div>
   );
 }
